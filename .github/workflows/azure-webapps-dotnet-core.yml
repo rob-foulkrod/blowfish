@@ -76,6 +76,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'thorwebapp'
+          app-name: 'blowfish-gh'
           slot-name: 'Production'
           package: .
