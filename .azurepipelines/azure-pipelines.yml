@@ -38,14 +38,14 @@ jobs:
     inputs:
       command: "test"
       publishTestResults: true
-      arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
+      arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --results-directory $(Build.ArtifactStagingDirectory)"
       projects: "**/*[Test]*/*.csproj"
 
   - task: PublishCodeCoverageResults@1
     displayName: "Publish code coverage results"
     inputs:
       codeCoverageTool: "Cobertura"
-      summaryFileLocation: "**/*coverage.cobertura.xml"
+      summaryFileLocation: "$(Build.ArtifactStagingDirectory)/*coverage.cobertura.xml"
 
 - job: Build
   displayName: Build
