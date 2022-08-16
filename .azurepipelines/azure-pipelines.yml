@@ -36,16 +36,15 @@ jobs:
   - task: DotNetCoreCLI@2
     displayName: "Running Tests"
     inputs:
-      command: "test"
-      publishTestResults: true
-      arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --results-directory $(Build.ArtifactStagingDirectory)"
-      projects: "**/*[Test]*/*.csproj"
+      command: 'test'
+      projects: '**/*[Test]*/*.csproj'
+      arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
 
   - task: PublishCodeCoverageResults@1
     displayName: "Publish code coverage results"
     inputs:
       codeCoverageTool: "Cobertura"
-      summaryFileLocation: "$(Build.ArtifactStagingDirectory)/*coverage.cobertura.xml"
+      summaryFileLocation: "$(Agent.TempDirectory)/*coverage.cobertura.xml"
 
 - job: Build
   displayName: Build
