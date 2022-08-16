@@ -48,6 +48,7 @@ jobs:
 
 - job: Build
   displayName: Build
+  dependsOn: CI
   pool:
     vmImage: ubuntu-latest
   steps:
