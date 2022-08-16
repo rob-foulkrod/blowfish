@@ -68,3 +68,4 @@ stages:
         inputs:
           PathtoPublish: $(build.artifactstagingdirectory)
           TargetPath: '\\my\share\$(Build.DefinitionName)\$(Build.BuildNumber)'
+          ArtifactName: "app"
