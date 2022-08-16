@@ -42,6 +42,7 @@ jobs:
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ./out
+        working-directory: web
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
