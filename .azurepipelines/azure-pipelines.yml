@@ -18,7 +18,7 @@ variables:
 
 jobs:
 - job: CI
-  displayName: CI Step
+  displayName: CI
   pool:
     vmImage: ubuntu-latest
   steps:
@@ -34,11 +34,25 @@ jobs:
       projects: $(BuildParameters.RestoreBuildProjects)
       arguments: --configuration $(BuildConfiguration)
   - task: DotNetCoreCLI@2
-    displayName: Test
+    displayName: "Running Tests"
     inputs:
-      command: test
-      projects: $(BuildParameters.TestProjects)
-      arguments: --configuration $(BuildConfiguration)
+      command: "test"
+      publishTestResults: true
+      arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
+      projects: "**/*[Test]*/*.csproj"
+
+  - task: PublishCodeCoverageResults@1
+    displayName: "Publish code coverage results"
+    inputs:
+      codeCoverageTool: "Cobertura"
+      summaryFileLocation: "**/*coverage.cobertura.xml"
+
+- job: Build
+  displayName: Build
+  pool:
+    vmImage: ubuntu-latest
+  steps:
+  - checkout: self
   - task: DotNetCoreCLI@2
     displayName: Publish
     inputs:
