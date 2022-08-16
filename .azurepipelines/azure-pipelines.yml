@@ -8,8 +8,13 @@ trigger:
 variables:
 - name: BuildParameters.RestoreBuildProjects
   value: '**/*.sln'
+
 - name: BuildParameters.TestProjects
   value: '**/*[Tt]ests/*.csproj'
+
+- name: BuildConfiguration
+  value: 'Release'
+
 
 jobs:
 - job: CI
